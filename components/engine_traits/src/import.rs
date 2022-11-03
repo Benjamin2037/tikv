@@ -16,4 +16,6 @@ pub trait IngestExternalFileOptions {
     fn get_write_global_seqno(&self) -> bool;
 
     fn set_write_global_seqno(&mut self, f: bool);
+
+    fn set_ingest_behind(&mut self, f: bool);
 }

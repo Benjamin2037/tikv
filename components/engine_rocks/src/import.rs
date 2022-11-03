@@ -17,6 +17,7 @@ impl ImportExt for RocksEngine {
         let mut opts = RocksIngestExternalFileOptions::new();
         opts.move_files(true);
         opts.set_write_global_seqno(false);
+        opts.set_ingest_behind(true);
         files.iter().try_for_each(|file| -> Result<()> {
             let f = File::open(file)?;
             // Prior to v5.2.0, TiKV use `write_global_seqno=true` for ingestion. For
@@ -58,6 +59,10 @@ impl IngestExternalFileOptions for RocksIngestExternalFileOptions {
 
     fn set_write_global_seqno(&mut self, f: bool) {
         self.0.set_write_global_seqno(f);
+    }
+    
+    fn set_ingest_behind(&mut self, f: bool) {
+        self.0.set_ingest_behind(f);
     }
 }
 
